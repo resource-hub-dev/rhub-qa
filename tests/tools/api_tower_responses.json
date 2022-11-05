@@ -1,0 +1,46 @@
+{
+  "tower": {
+    "server": {
+      "get_list": {
+        "_href": { "server": "/v0/tower/server/1" },
+        "credentials": "string",
+        "description": "string",
+        "enabled": true,
+        "id": 1,
+        "name": "string",
+        "url": "string",
+        "verify_ssl": true
+      },
+      "create": {
+        "_href": { "server": "/v0/tower/server/2" },
+        "credentials": "kv/tower/prod/rhub",
+        "enabled": true,
+        "description": "",
+        "id": 2,
+        "name": "default",
+        "url": "https://tower.example.com",
+        "verify_ssl": true
+      },
+      "get": {
+        "_href": { "server": "/v0/tower/server/2" },
+        "credentials": "kv/tower/prod/rhub",
+        "enabled": true,
+        "description": "",
+        "id": 2,
+        "name": "default",
+        "url": "https://tower.example.com",
+        "verify_ssl": true
+      },
+      "update": {
+        "_href": { "server": "/v0/tower/server/2" },
+        "credentials": "kv/tower/prod/rhub",
+        "enabled": true,
+        "description": "updated tower description",
+        "id": 2,
+        "name": "default",
+        "url": "https://tower.example.com",
+        "verify_ssl": true
+      }
+    }
+  }
+}

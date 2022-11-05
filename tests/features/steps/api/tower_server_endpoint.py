@@ -10,11 +10,11 @@ class TowerServerEndpoint(BaseEndpoint):
     """
 
     UNVERIFIABLE_ITEMS = {
-        'get_list': {},
-        'create': {'id': IsVerifiable.NO},
+        'get_list': {'id': IsVerifiable.NO, '_href': IsVerifiable.NO},
+        'create': {'id': IsVerifiable.NO, '_href': IsVerifiable.NO},
         'delete': {},
-        'get': {},
-        'update': {}
+        'get': {'id': IsVerifiable.NO, '_href': IsVerifiable.NO},
+        'update': {'id': IsVerifiable.NO, '_href': IsVerifiable.NO}
     }
 
     def url(self, suffix: str = '') -> str:
@@ -49,6 +49,13 @@ class TowerServerEndpoint(BaseEndpoint):
         body = self.create_body(args)
         response = self.post(self.url(), json=body)
 
+        try:
+            response.raise_for_status()
+            id = response.json()['id']
+            BaseEndpoint.LOGGER.log_cleanup(self.delete, id=id)
+        except requests.HTTPError:
+            pass
+
         return response
 
     @log_call(BaseEndpoint.LOGGER, UNVERIFIABLE_ITEMS['delete'])
@@ -76,6 +83,14 @@ class TowerServerEndpoint(BaseEndpoint):
     ) -> requests.Response:
         args = self.get_function_arguments(locals(), skip_args=['self', 'id'])
         body = self.create_body(args)
+        cleanup_args = self.get_values_before_update(self.get, id, args)
+
         response = self.patch(self.url(f"/{id}"), json=body)
+
+        try:
+            response.raise_for_status()
+            BaseEndpoint.LOGGER.log_cleanup(self.update, id=id, **cleanup_args)
+        except requests.HTTPError:
+            pass
 
         return response

@@ -1,4 +1,3 @@
-from lib2to3.pytree import Base
 import requests
 
 from steps.api.base_endpoint import BaseEndpoint, log_call, IsVerifiable

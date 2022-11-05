@@ -1,0 +1,14 @@
+{
+  "tower": {
+    "server": {
+      "create": {
+        "name": "default",
+        "url": "https://tower.example.com",
+        "credentials": "kv/tower/prod/rhub"
+      },
+      "update": {
+        "description": "updated tower description"
+      }
+    }
+  }
+}
