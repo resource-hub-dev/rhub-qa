@@ -18,7 +18,7 @@ API_RESPONSE_PATTERN = '../data/api/responses/*.json'
 
 @fixture
 def rhub_api(context):
-    context.api_addr = os.environ["RHUB_API_ADDR"]
+    context.api_addr = f'{os.environ["RHUB_API_ADDR"]}/v0'
     context.api_token = os.environ["RHUB_API_TOKEN"]
 
     context.api = API(admin_token=context.api_token, api_url=context.api_addr)
